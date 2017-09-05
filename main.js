@@ -11,6 +11,7 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+//rightclick context menu
 const menu = new Menu()
 menu.append(new MenuItem({
   label: 'Hello'
