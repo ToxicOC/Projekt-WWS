@@ -57,3 +57,12 @@ newWindowBtn.addEventListener('click', function(event) {
     manageWindowReply.innerText = message
   }
 })
+
+// Notification on start up added
+let myNotification = new Notification('Title', {
+  body: 'Stuff'
+})
+
+myNotification.onclick = () => {
+  console.log('Notification clicked')
+}
