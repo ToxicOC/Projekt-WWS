@@ -6,10 +6,25 @@ const MenuItem = electron.MenuItem
 const ipc = electron.ipcMain
 const path = require('path')
 const url = require('url')
+const {shell} = require('electron')
+const {Tray} = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+
+let tray = null
+app.on('ready', () => {
+  tray = new Tray('C:/Users/Max/Pictures/iMac-icon.png')
+  const contextMenu = Menu.buildFromTemplate([
+    {label: 'Item1', type: 'radio'},
+    {label: 'Item2', type: 'radio'},
+    {label: 'Item3', type: 'radio', checked: true},
+    {label: 'Item4', type: 'radio'}
+  ])
+  tray.setToolTip('This is my application.')
+  tray.setContextMenu(contextMenu)
+})
 
 //rightclick context menu
 const menu = new Menu()
@@ -35,6 +50,8 @@ ipc.on('show-context-menu', function(event) {
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    // frame: false,
+    //alwaysOnTop: true,
     // autoHideMenuBar : true,
     width: 800,
     height: 600
@@ -48,7 +65,7 @@ function createWindow() {
   }))
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
@@ -80,6 +97,8 @@ app.on('activate', function() {
     createWindow()
   }
 })
+
+// shell.openExternal('https://github.com')
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

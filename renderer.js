@@ -5,10 +5,13 @@
 const BrowserWindow = require('electron').remote.BrowserWindow
 const path = require('path')
 const ipc = require('electron').ipcRenderer
-
+const nativeImage = require('electron').nativeImage
 const newWindowBtn = document.getElementById('new-window')
 // const focusModalBtn = document.getElementById('focusBtn')
+
 let win
+let image = nativeImage.createFromPath('C:/Users/Max/Pictures/iMac-icon.png')
+console.log(image)
 
 newWindowBtn.addEventListener('click', function(event) {
   const modalPath = path.join('file://', __dirname, 'new-window.html')
@@ -60,9 +63,13 @@ newWindowBtn.addEventListener('click', function(event) {
 
 // Notification on start up added
 let myNotification = new Notification('Title', {
-  body: 'Stuff'
+  body: 'Stuff',
+  silent: 'silent',
+  icon: 'C:/Users/Max/Pictures/iMac-icon.png'
 })
-
+// if (myNotification.isSupported()) {
+// console.log(myNotification.isSupported());
+// }
 myNotification.onclick = () => {
-  console.log('Notification clicked')
+  console.log(myNotification)
 }
